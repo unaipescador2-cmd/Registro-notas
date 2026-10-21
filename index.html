@@ -1,13 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de notas</title>
+  <link rel="stylesheet" href="estilos.css">
 </head>
-
 <body>
-    
-    <script src="notas.js"></script>
+
+  <header>
+    <h1>Registro de notas</h1>
+    <p>Una clase, una tabla y muchos arrays.</p>
+  </header>
+
+  <main>
+
+    <!-- Filtro y orden -->
+    <section class="tarjeta" id="controles">
+      <div class="campo">
+        <label for="filtro">Mostrar</label>
+        <select id="filtro">
+          <option value="todos">Todos</option>
+          <option value="aprobados">Aprobados</option>
+          <option value="suspensos">Suspensos</option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label for="orden">Ordenar por</label>
+        <select id="orden">
+          <option value="nombre">Nombre</option>
+          <option value="nota-desc">Nota más alta primero</option>
+          <option value="nota-asc">Nota más baja primero</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Tabla -->
+    <section class="tarjeta">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Nota</th>
+            <th scope="col">Borrar</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpo-tabla"></tbody>
+      </table>
+    </section>
+
+    <!-- Añadir alumno -->
+    <section class="tarjeta">
+      <h2>Añadir alumno</h2>
+      <form id="formulario-alumno" novalidate>
+        <div class="campo">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" autocomplete="off" placeholder="Ej: Eva">
+        </div>
+
+        <div class="campo">
+          <label for="nota">Nota (0 a 10)</label>
+          <input type="text" id="nota" inputmode="decimal" autocomplete="off" placeholder="Ej: 7.5">
+        </div>
+
+        <button type="submit">Añadir</button>
+      </form>
+      <div id="mensaje" class="mensaje" aria-live="polite"></div>
+    </section>
+
+    <!-- Resumen -->
+    <section class="tarjeta">
+      <h2>Resumen</h2>
+      <div id="resumen"></div>
+    </section>
+
+  </main>
+
+  <script src="notas.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

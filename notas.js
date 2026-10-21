@@ -95,3 +95,38 @@ function todosAprobados(lista) {
 function ranking(lista, n) {
   return ordenarPorNota(lista).slice(0, n);
 }
+
+
+// FASE 4 · Tabla dinámica con filtro y orden
+// Ninguna de estas funciones cambia la lista: devuelven copias o datos.
+
+function filtrarAlumnos(lista, filtro) {
+  if (filtro === "aprobados") {
+    return aprobados(lista);
+  }
+  if (filtro === "suspensos") {
+    return lista.filter((alumno) => alumno.nota < 5);
+  }
+  return [...lista];
+}
+
+function ordenarAlumnos(lista, criterio) {
+  if (criterio === "nombre") {
+    return ordenarPorNombre(lista);
+  }
+  if (criterio === "nota-desc") {
+    return ordenarPorNota(lista);
+  }
+  if (criterio === "nota-asc") {
+    return ordenarPorNota(lista).reverse();
+  }
+  return [...lista];
+}
+
+function esNotaValida(texto) {
+  if (texto.trim() === "") {
+    return false;
+  }
+  const numero = Number(texto);
+  return Number.isFinite(numero) && numero >= 0 && numero <= 10;
+}

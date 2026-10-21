@@ -1,0 +1,236 @@
+:root {
+  --fondo: #f4f5f7;
+  --tarjeta: #ffffff;
+  --texto: #1f2933;
+  --suave: #52606d;
+  --borde: #d5dae0;
+  --acento: #2f5fd0;
+  --acento-oscuro: #2449a3;
+  --ok-fondo: #e6f4ea;
+  --ok-texto: #1e6b34;
+  --error-fondo: #fdeaea;
+  --error-texto: #a12626;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+  line-height: 1.5;
+}
+
+header {
+  text-align: center;
+  padding: 1.5rem 1rem;
+}
+
+header h1 {
+  margin: 0 0 0.25rem;
+}
+
+header p {
+  margin: 0;
+  color: var(--suave);
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem 2rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: start;
+  gap: 1.25rem;
+}
+
+/* Reparto en pantallas anchas:
+   filtros arriba, tabla a la izquierda, formulario y resumen a la derecha */
+main > section:nth-child(1) {
+  grid-column: 1 / -1;
+}
+
+main > section:nth-child(2) {
+  grid-column: 1;
+  grid-row: 2 / span 2;
+}
+
+main > section:nth-child(3) {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+main > section:nth-child(4) {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+/* En pantallas estrechas, todo en una columna */
+@media (max-width: 800px) {
+  main {
+    grid-template-columns: 1fr;
+    padding: 0 1rem 2rem;
+  }
+
+  main > section:nth-child(n) {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+
+.tarjeta {
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+
+.tarjeta h2 {
+  margin: 0 0 1rem;
+  font-size: 1.15rem;
+}
+
+#controles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+#controles .campo {
+  flex: 1 1 220px;
+}
+
+.campo {
+  margin-bottom: 0.75rem;
+}
+
+#controles .campo {
+  margin-bottom: 0;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.55rem 0.7rem;
+  font: inherit;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  background: #fff;
+}
+
+input:focus,
+select:focus,
+button:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 1px;
+}
+
+button[type="submit"] {
+  padding: 0.6rem 1.1rem;
+  font: inherit;
+  font-weight: 600;
+  color: #fff;
+  background: var(--acento);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background: var(--acento-oscuro);
+}
+
+/* Tabla */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--borde);
+}
+
+th {
+  font-size: 0.85rem;
+  color: var(--suave);
+}
+
+th:nth-child(2),
+td:nth-child(2),
+th:nth-child(3),
+td:nth-child(3) {
+  text-align: center;
+  width: 90px;
+}
+
+td.aprobado {
+  color: var(--ok-texto);
+  font-weight: 700;
+}
+
+td.suspenso {
+  color: var(--error-texto);
+  font-weight: 700;
+}
+
+td.vacio {
+  text-align: center;
+  color: var(--suave);
+  padding: 1.5rem;
+}
+
+button.borrar {
+  padding: 0.2rem 0.55rem;
+  font: inherit;
+  color: var(--error-texto);
+  background: var(--error-fondo);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button.borrar:hover {
+  border-color: var(--error-texto);
+}
+
+/* Mensajes y resumen */
+
+.mensaje {
+  margin-top: 1rem;
+  border-radius: 6px;
+}
+
+.mensaje:empty {
+  display: none;
+}
+
+.mensaje.ok {
+  padding: 0.75rem;
+  background: var(--ok-fondo);
+  color: var(--ok-texto);
+}
+
+.mensaje.error {
+  padding: 0.75rem;
+  background: var(--error-fondo);
+  color: var(--error-texto);
+}
+
+#resumen {
+  white-space: pre-line;
+}

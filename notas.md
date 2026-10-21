@@ -146,3 +146,44 @@ Después volví a poner el `0`.
    Devuelve `true`. Es lógico en matemáticas: `every` pregunta si hay algún elemento que no cumpla la condición, y en una lista vacía no hay ninguno, así que "todos cumplen". Pero en una clase puede resultar raro decir que todos han aprobado cuando no hay ningún alumno. Si fuera necesario, habría que comprobar antes que la lista no está vacía.
 3. **¿Qué diferencia hay entre `map` y `filter`? Pon un ejemplo de tu código.**
    `map` transforma cada elemento y devuelve un array con **la misma cantidad** de elementos. `filter` se queda solo con los elementos que cumplen una condición y devuelve un array con **igual o menos** elementos, sin cambiarlos. En `nombresAprobados` se ven los dos: `filter` (dentro de `aprobados`) deja solo a los que tienen 5 o más, y `map` convierte cada alumno en su nombre.
+
+
+---
+## Fase 4 · Tabla dinámica con filtro y orden
+ 
+### Funciones nuevas en `notas.js`
+ 
+| Función | Qué hace | ¿Cambia la lista? |
+|---------|----------|-------------------|
+| `filtrarAlumnos(lista, filtro)` | Devuelve una copia con los alumnos de "todos", "aprobados" o "suspensos" (suspenso es menos de 5) | No cambia |
+| `ordenarAlumnos(lista, criterio)` | Devuelve una copia ordenada por "nombre", "nota-desc" o "nota-asc". Usa las funciones de la Fase 2 | No cambia |
+| `esNotaValida(texto)` | `true` si el texto es un número de 0 a 10. `false` si está vacío o no es un número | No cambia |
+ 
+Ejemplos probados:
+ 
+| Ejemplo | Resultado |
+|---------|-----------|
+| `esNotaValida("7.5")` | true |
+| `esNotaValida("")` | false |
+| `esNotaValida("11")` | false |
+| `filtrarAlumnos(lista, "aprobados")` | Los que tienen 5 o más |
+| `filtrarAlumnos(lista, "todos")` | Una copia de toda la lista |
+| `ordenarAlumnos(lista, "nota-desc")` | De la nota más alta a la más baja |
+| `ordenarAlumnos(lista, "nota-asc")` | De la nota más baja a la más alta |
+ 
+### La página
+ 
+- **`index.html`:** una tabla con las columnas Nombre, Nota y Borrar, un selector "Mostrar", un selector "Ordenar por", un formulario para añadir alumnos y un sitio para el resumen.
+- **`pintarTabla()` en `app.js`:** es la única función que dibuja la tabla. Coge la lista, aplica el filtro y el orden y escribe las filas. Se llama al cargar la página y cada vez que algo cambia. Las notas aprobadas se ven en verde y las suspensas en rojo. Si no hay alumnos que mostrar, escribe un mensaje en la tabla.
+- **Filtro y orden:** cuando se cambia uno de los dos selectores, se vuelve a dibujar la tabla.
+- **Añadir:** antes de añadir comprueba que el nombre no está vacío, que no hay ya un alumno con ese nombre (con `buscarPorNombre`) y que la nota es válida (con `esNotaValida`). Si algo falla, escribe un mensaje en la página, sin usar `alert`.
+- **Borrar:** cada fila tiene un botón ✕ que llama a `borrarPorNombre` y vuelve a dibujar la tabla.
+- **Resumen:** número de alumnos, nota media con 2 decimales, nota máxima y aprobados, con las funciones de la Fase 3. Se calcula con la lista completa, no con la que se ve filtrada.
+La lista verdadera es el array `alumnos`, que se crea como una copia de `ALUMNOS_INICIALES`. El filtro y el orden solo cambian lo que se ve, nunca esa lista.
+ 
+### Preguntas
+ 
+1. **¿Por qué `filtrarAlumnos` y `ordenarAlumnos` devuelven copias?**
+   Porque la lista verdadera, la que se queda guardada, no debe cambiar al mirarla de otra forma. Filtrar y ordenar solo sirven para decidir qué se ve en la tabla. Si devolvieran la lista original, cada cambio de selector modificaría los datos.
+2. **¿Qué pasaría en la página si `ordenarAlumnos` cambiara la lista original?**
+   La lista quedaría reordenada para siempre cada vez que se eligiera un orden, y se perdería el orden en que se añadieron los alumnos. Además, el resumen y el resto de funciones trabajarían con una lista que ya no es la que había. Por eso `ordenarAlumnos` ordena una copia.
