@@ -8,10 +8,12 @@
 
 | Línea | Mi predicción | Lo que salió |
 |-------|---------------|--------------|
-| 1. `a[0]` | SAldra lo que hay en la posicion 0 del array a  | "x" |
+| 1. `a[0]` | SAldra lo que hay en la posicion 0 del array a | "x" |
 | 2. `a[3]` | Saldra lo que hay en la posicion 3 del array a | undefined |
 | 3. `a.length` | Indica la longitud del array | 3 |
 | 4. `[1, "dos", true].length` | Da la longitud del array | 3 |
+
+![Captura del bloque A](evidencias/Fase1_BloqueA.png)
 
 **Bloque B · const y copias**
 
@@ -21,12 +23,16 @@
 | 6. `q.push(4)` y mirar `p` (con `let p = [1, 2, 3]; let q = p;`) | Añade al array el 4 | `q.push(4)` devuelve 4. `p` queda [1, 2, 3, 4] |
 | 7. `let r = [...p]; r.push(5)` y mirar `p` | Añade 5 al array r | `r.push(5)` devuelve 5. `r` es [1, 2, 3, 4, 5] y `p` sigue en [1, 2, 3, 4] |
 
+![Captura del bloque B](evidencias/Fase1_BloqueB.png)
+
 **Bloque C · Ordenar**
 
 | Línea | Mi predicción | Lo que salió |
 |-------|---------------|--------------|
 | 8. `[10, 9, 1].sort()` | Pone el mas corto el primero | [1, 10, 9] |
 | 9. `[10, 9, 1].sort((x, y) => x - y)` | hace la resta de x - y ypone el mas corto el primero | [1, 9, 10] |
+
+![Captura del bloque C](evidencias/Fase1_BloqueC.png)
 
 **Bloque D · ¿Cambia el array original?** (con `const n = [3, 1, 2]` en cada línea)
 
@@ -36,6 +42,8 @@
 | 11. `n.pop()` | Quita el ultimo | Devuelve 2. `n` cambia: [3, 1] |
 | 12. `n.slice(0, 2)` | mueve el 2 a la posicion 0 | Devuelve [3, 1]. `n` no cambia: [3, 1, 2] |
 | 13. `n.map(x => x * 2)` | La psicion x la mltiplica por 2 | Devuelve [6, 2, 4]. `n` no cambia: [3, 1, 2] |
+
+![Captura del bloque D](evidencias/Fase1_BloqueD.png)
 
 ### Preguntas
 
@@ -51,14 +59,14 @@
 4. **De los cuatro métodos del bloque D, ¿cuáles cambian el array y cuáles devuelven uno nuevo?**
    `push` y `pop` **cambian** el array original. `slice` y `map` **devuelven un array nuevo** y dejan el original como estaba.
 
-   ---
- 
+---
+
 ## Fase 2 · Añadir, quitar, buscar y ordenar
- 
+
 ### Funciones creadas
- 
+
 Cada alumno es un objeto con su nombre y su nota, por ejemplo `{ nombre: "Ana", nota: 7.5 }`. La lista de los 10 alumnos está en la constante `ALUMNOS_INICIALES`.
- 
+
 | Función | Qué hace | Método usado | ¿Cambia la lista? |
 |---------|----------|--------------|-------------------|
 | `anadirAlumno(lista, nombre, nota)` | Añade un alumno al final y devuelve la nueva cantidad | `push` | **Cambia** |
@@ -68,9 +76,9 @@ Cada alumno es un objeto con su nombre y su nota, por ejemplo `{ nombre: "Ana", 
 | `buscarPorNombre(lista, nombre)` | Devuelve el alumno con ese nombre, o `undefined` | `find` | No cambia |
 | `ordenarPorNota(lista)` | Devuelve una copia ordenada de la nota más alta a la más baja | `[...lista]` y `sort` | No cambia |
 | `ordenarPorNombre(lista)` | Devuelve una copia ordenada de la A a la Z | `[...lista]` y `sort` | No cambia |
- 
+
 ### Ejemplos probados
- 
+
 | Ejemplo | Resultado |
 |---------|-----------|
 | `anadirAlumno(lista, "Eva", 8)` | 3 |
@@ -83,27 +91,38 @@ Cada alumno es un objeto con su nombre y su nota, por ejemplo `{ nombre: "Ana", 
 | `ordenarPorNota(lista)` con Luis 4, Ana 7.5 y Lucía 10 | Lucía, Ana, Luis |
 | `ordenarPorNombre(lista)` con Luis, Ana y Lucía | Ana, Lucía, Luis |
 | `ordenarPorNota(ALUMNOS_INICIALES)` | Lucía (10), Marta (9.25), Hugo (9)... |
- 
+
 Al ordenar los 10 alumnos, Lucía (10) sale primera. La segunda es Marta (9.25) y Hugo (9) es tercero, porque 9.25 es más que 9.
- 
+
 ### Preguntas
- 
+
 1. **¿Qué funciones de esta fase cambian la lista y cuáles no? ¿Cómo lo sé?**
    Cambian la lista `anadirAlumno`, `quitarUltimo`, `insertarEn` y `borrarPorNombre`. No la cambian `buscarPorNombre`, `ordenarPorNota` y `ordenarPorNombre`. Lo sé por el método que usan: `push`, `pop` y `splice` modifican el array original. `find` solo busca, y las dos de ordenar trabajan sobre una copia. Lo comprobé escribiendo la lista en la consola después de ejecutar cada función.
+
 2. **¿Por qué `ordenarPorNota` hace una copia antes de ordenar?**
    Porque `sort` ordena el array **en el sitio**, es decir, cambia el original. Con `[...lista]` se crea una copia y `sort` ordena la copia, así que la lista original se queda como estaba.
+
 3. **¿Qué pasaría con las notas 10, 9 y 1 si no usaras una función de comparación?**
    `sort` las convertiría en texto y las ordenaría como palabras, y saldría `[1, 10, 9]` en vez de `[10, 9, 1]`. Por eso hace falta la función de comparación `(a, b) => b.nota - a.nota`.
 
+### Capturas
+
+Las funciones que cambian la lista y la búsqueda, probadas en la consola con los ejemplos del enunciado:
+
+![Funciones de la Fase 2 probadas en la consola](evidencias/Fase2_Paso3-.png)
+
+Las funciones de ordenar, comprobando que la lista original no cambia:
+
+![Funciones de ordenar de la Fase 2](evidencias/Fase2_Paso3-ordenar.png)
 
 ---
- 
+
 ## Fase 3 · Estadísticas de la clase
- 
+
 Ninguna función de esta fase cambia la lista: todas calculan algo y lo devuelven.
- 
+
 ### Funciones creadas
- 
+
 | Función | Qué devuelve | Método usado | Ejemplo | Resultado |
 |---------|--------------|--------------|---------|-----------|
 | `notaMedia(lista)` | La nota media sin redondear (0 si no hay alumnos) | `map` y `reduce` | `notaMedia(lista)` | 6.4375 |
@@ -113,11 +132,11 @@ Ninguna función de esta fase cambia la lista: todas calculan algo y lo devuelve
 | `hayAlgunDiez(lista)` | `true` si algún alumno tiene un 10 | `some` | `hayAlgunDiez(lista)` | false |
 | `todosAprobados(lista)` | `true` si todos tienen 5 o más | `every` | `todosAprobados(lista)` | false |
 | `ranking(lista, n)` | Los `n` mejores alumnos, de mayor a menor nota | `ordenarPorNota` y `slice` | `ranking(lista, 2)` | Marta (9.25) y Ana (7.5) |
- 
+
 La lista de ejemplo es Ana 7.5, Luis 4, Marta 9.25 y Pablo 5. `ranking` usa `ordenarPorNota` de la Fase 2, que ya trabaja sobre una copia, y por eso la lista original no cambia.
- 
+
 ### Experimento 1: todas las funciones con una lista vacía
- 
+
 | Función | Resultado con `[]` |
 |---------|--------------------|
 | `notaMedia([])` | 0 |
@@ -127,40 +146,48 @@ La lista de ejemplo es Ana 7.5, Luis 4, Marta 9.25 y Pablo 5. `ranking` usa `ord
 | `hayAlgunDiez([])` | false |
 | `todosAprobados([])` | true |
 | `ranking([], 3)` | [] |
- 
+
 ### Experimento 2: quitar el valor inicial del `reduce`
- 
+
 Quité el `0` del `reduce` de `notaMedia` y la probé con la lista vacía. Salió este error:
- 
+
 ```
 TypeError: Reduce of empty array with no initial value
 ```
- 
+
 Después volví a poner el `0`.
- 
+
 ### Preguntas
- 
+
 1. **¿Por qué `reduce` necesita un valor inicial cuando la lista está vacía?**
    Cuando no se le da valor inicial, `reduce` toma el primer elemento de la lista como punto de partida. Si la lista está vacía no hay primer elemento, y da un `TypeError`. Con el valor inicial `0`, `reduce` devuelve ese `0` y no falla.
+
 2. **¿Qué devuelve `todosAprobados` con una lista vacía? ¿Te parece lógico? Explícalo.**
    Devuelve `true`. Es lógico en matemáticas: `every` pregunta si hay algún elemento que no cumpla la condición, y en una lista vacía no hay ninguno, así que "todos cumplen". Pero en una clase puede resultar raro decir que todos han aprobado cuando no hay ningún alumno. Si fuera necesario, habría que comprobar antes que la lista no está vacía.
+
 3. **¿Qué diferencia hay entre `map` y `filter`? Pon un ejemplo de tu código.**
    `map` transforma cada elemento y devuelve un array con **la misma cantidad** de elementos. `filter` se queda solo con los elementos que cumplen una condición y devuelve un array con **igual o menos** elementos, sin cambiarlos. En `nombresAprobados` se ven los dos: `filter` (dentro de `aprobados`) deja solo a los que tienen 5 o más, y `map` convierte cada alumno en su nombre.
 
+### Captura
+
+Las funciones de estadísticas probadas en la consola:
+
+![Estadísticas de la clase en la consola](evidencias/Fase3_Estadisticas.png)
 
 ---
+
 ## Fase 4 · Tabla dinámica con filtro y orden
- 
+
 ### Funciones nuevas en `notas.js`
- 
+
 | Función | Qué hace | ¿Cambia la lista? |
 |---------|----------|-------------------|
 | `filtrarAlumnos(lista, filtro)` | Devuelve una copia con los alumnos de "todos", "aprobados" o "suspensos" (suspenso es menos de 5) | No cambia |
 | `ordenarAlumnos(lista, criterio)` | Devuelve una copia ordenada por "nombre", "nota-desc" o "nota-asc". Usa las funciones de la Fase 2 | No cambia |
 | `esNotaValida(texto)` | `true` si el texto es un número de 0 a 10. `false` si está vacío o no es un número | No cambia |
- 
+
 Ejemplos probados:
- 
+
 | Ejemplo | Resultado |
 |---------|-----------|
 | `esNotaValida("7.5")` | true |
@@ -170,20 +197,104 @@ Ejemplos probados:
 | `filtrarAlumnos(lista, "todos")` | Una copia de toda la lista |
 | `ordenarAlumnos(lista, "nota-desc")` | De la nota más alta a la más baja |
 | `ordenarAlumnos(lista, "nota-asc")` | De la nota más baja a la más alta |
- 
+
 ### La página
- 
+
 - **`index.html`:** una tabla con las columnas Nombre, Nota y Borrar, un selector "Mostrar", un selector "Ordenar por", un formulario para añadir alumnos y un sitio para el resumen.
 - **`pintarTabla()` en `app.js`:** es la única función que dibuja la tabla. Coge la lista, aplica el filtro y el orden y escribe las filas. Se llama al cargar la página y cada vez que algo cambia. Las notas aprobadas se ven en verde y las suspensas en rojo. Si no hay alumnos que mostrar, escribe un mensaje en la tabla.
 - **Filtro y orden:** cuando se cambia uno de los dos selectores, se vuelve a dibujar la tabla.
 - **Añadir:** antes de añadir comprueba que el nombre no está vacío, que no hay ya un alumno con ese nombre (con `buscarPorNombre`) y que la nota es válida (con `esNotaValida`). Si algo falla, escribe un mensaje en la página, sin usar `alert`.
 - **Borrar:** cada fila tiene un botón ✕ que llama a `borrarPorNombre` y vuelve a dibujar la tabla.
 - **Resumen:** número de alumnos, nota media con 2 decimales, nota máxima y aprobados, con las funciones de la Fase 3. Se calcula con la lista completa, no con la que se ve filtrada.
+
 La lista verdadera es el array `alumnos`, que se crea como una copia de `ALUMNOS_INICIALES`. El filtro y el orden solo cambian lo que se ve, nunca esa lista.
- 
+
 ### Preguntas
- 
+
 1. **¿Por qué `filtrarAlumnos` y `ordenarAlumnos` devuelven copias?**
    Porque la lista verdadera, la que se queda guardada, no debe cambiar al mirarla de otra forma. Filtrar y ordenar solo sirven para decidir qué se ve en la tabla. Si devolvieran la lista original, cada cambio de selector modificaría los datos.
+
 2. **¿Qué pasaría en la página si `ordenarAlumnos` cambiara la lista original?**
    La lista quedaría reordenada para siempre cada vez que se eligiera un orden, y se perdería el orden en que se añadieron los alumnos. Además, el resumen y el resto de funciones trabajarían con una lista que ya no es la que había. Por eso `ordenarAlumnos` ordena una copia.
+
+### Capturas
+
+La página completa con la tabla, los selectores y el resumen:
+
+![Página completa de la Fase 4](evidencias/Fase4_Pantallacompleta.png)
+
+La validación del formulario, con un mensaje de error en la página:
+
+![Página con un mensaje de error](evidencias/Fase4_Pantallacompleta-fallo.png)
+
+---
+
+## Fase 5 · Depuración y documentación
+
+### Mirar los datos con `console.table`
+
+| Comando | Lo que veo |
+|---------|------------|
+| `console.table(alumnos)` | Una tabla con una fila por alumno y tres columnas: el índice (0 a 9), `nombre` y `nota`. Se ve mucho más claro que el array escrito en una línea. |
+| `console.table(alumnos.map(a => a.nota))` | Una tabla con solo dos columnas: el índice y el valor de cada nota. `map` ha convertido cada alumno en su nota, así que ya no hay nombres. |
+
+![console.table de la lista de alumnos y de sus notas](evidencias/Fase5.png)
+
+### Los cuatro fallos
+
+**Fallo 1 · Quería ver 1, 5, 9, 10**
+
+```js
+const notas = [10, 9, 1, 5];
+notas.sort();
+console.log(notas);
+```
+
+- **Qué pasaba:** salía `[1, 10, 5, 9]` en vez de `[1, 5, 9, 10]`.
+- **Por qué:** `sort()` sin función de comparación convierte los números en texto y los ordena como palabras, letra a letra. Como `"10"` empieza por `"1"`, va antes que `"5"`.
+- **Cómo lo arreglé:** `notas.sort((a, b) => a - b)`.
+- **Herramienta:** `console.log`, que me enseñó el orden que salía.
+
+**Fallo 2 · Quería ordenar una copia y dejar `alumnos` como estaba**
+
+```js
+const copia = alumnos;
+copia.sort((a, b) => a.nota - b.nota);
+```
+
+- **Qué pasaba:** al mirar `alumnos` con `console.table`, estaba ordenado por nota. Había cambiado.
+- **Por qué:** `const copia = alumnos` no copia nada: `copia` y `alumnos` son dos nombres del mismo array, es decir, una referencia. Al ordenar `copia` se ordena `alumnos`.
+- **Cómo lo arreglé:** `const copia = [...alumnos];`, que crea un array nuevo.
+- **Herramienta:** `console.table(alumnos)`, que me dejó ver el orden de la lista de un vistazo.
+
+**Fallo 3 · Quería que la suma de una lista vacía diera 0**
+
+```js
+function suma(notas) {
+  return notas.reduce((a, b) => a + b);
+}
+console.log(suma([]));
+```
+
+- **Qué pasaba:** daba un error y no salía ningún número.
+- **Por qué:** sin valor inicial, `reduce` empieza con el primer elemento de la lista. En una lista vacía no hay ninguno, y falla.
+- **Cómo lo arreglé:** `notas.reduce((a, b) => a + b, 0)`.
+- **Herramienta:** el mensaje de la consola: `TypeError: Reduce of empty array with no initial value`.
+
+**Fallo 4 · Quería escribir el nombre de cada alumno**
+
+```js
+for (let i = 0; i <= alumnos.length; i++) {
+  console.log(alumnos[i].nombre);
+}
+```
+
+- **Qué pasaba:** escribía los 10 nombres y luego daba un error.
+- **Por qué:** con `<=` el bucle llega hasta `i = 10`, pero las posiciones solo llegan a la 9. `alumnos[10]` es `undefined` y no tiene `nombre`.
+- **Cómo lo arreglé:** cambié `<=` por `<`.
+- **Herramienta:** el mensaje de la consola: `TypeError: Cannot read properties of undefined (reading 'nombre')`.
+
+### Documentación
+
+- Encima de cada función de `notas.js` he escrito un comentario JSDoc (`/** ... */`) con cuatro cosas: qué hace, qué recibe (`@param`), qué devuelve (`@returns`) y si cambia la lista o no.
+- He creado el `README.md` con dos listas: las funciones que cambian la lista (`anadirAlumno`, `quitarUltimo`, `insertarEn` y `borrarPorNombre`) y las que no la cambian, que devuelven una copia o un dato.
