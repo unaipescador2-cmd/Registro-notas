@@ -50,3 +50,48 @@ function ordenarPorNota(lista) {
 function ordenarPorNombre(lista) {
   return [...lista].sort((a, b) => a.nombre.localeCompare(b.nombre, "es"));
 }
+
+
+// FASE 3 · Estadísticas de la clase
+// Ninguna de estas funciones cambia la lista.
+const lista = [
+    { nombre: "Ana", nota: 7.5 },
+    { nombre: "Luis", nota: 4 },
+    { nombre: "Marta", nota: 9.25 },
+    { nombre: "Pablo", nota: 5 }
+];
+
+
+function notaMedia(lista) {
+  const suma = lista
+    .map((alumno) => alumno.nota)
+    .reduce((total, nota) => total + nota, 0);
+  return lista.length === 0 ? 0 : suma / lista.length;
+}
+
+function notaMaxima(lista) {
+  if (lista.length === 0) {
+    return null;
+  }
+  return Math.max(...lista.map((alumno) => alumno.nota));
+}
+
+function aprobados(lista) {
+  return lista.filter((alumno) => alumno.nota >= 5);
+}
+
+function nombresAprobados(lista) {
+  return aprobados(lista).map((alumno) => alumno.nombre);
+}
+
+function hayAlgunDiez(lista) {
+  return lista.some((alumno) => alumno.nota === 10);
+}
+
+function todosAprobados(lista) {
+  return lista.every((alumno) => alumno.nota >= 5);
+}
+
+function ranking(lista, n) {
+  return ordenarPorNota(lista).slice(0, n);
+}

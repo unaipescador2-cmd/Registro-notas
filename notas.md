@@ -94,3 +94,55 @@ Al ordenar los 10 alumnos, Lucía (10) sale primera. La segunda es Marta (9.25) 
    Porque `sort` ordena el array **en el sitio**, es decir, cambia el original. Con `[...lista]` se crea una copia y `sort` ordena la copia, así que la lista original se queda como estaba.
 3. **¿Qué pasaría con las notas 10, 9 y 1 si no usaras una función de comparación?**
    `sort` las convertiría en texto y las ordenaría como palabras, y saldría `[1, 10, 9]` en vez de `[10, 9, 1]`. Por eso hace falta la función de comparación `(a, b) => b.nota - a.nota`.
+
+
+---
+ 
+## Fase 3 · Estadísticas de la clase
+ 
+Ninguna función de esta fase cambia la lista: todas calculan algo y lo devuelven.
+ 
+### Funciones creadas
+ 
+| Función | Qué devuelve | Método usado | Ejemplo | Resultado |
+|---------|--------------|--------------|---------|-----------|
+| `notaMedia(lista)` | La nota media sin redondear (0 si no hay alumnos) | `map` y `reduce` | `notaMedia(lista)` | 6.4375 |
+| `notaMaxima(lista)` | La nota más alta (`null` si no hay alumnos) | `map` y `Math.max` | `notaMaxima(lista)` | 9.25 |
+| `aprobados(lista)` | Los alumnos con 5 o más | `filter` | `aprobados(lista)` | Ana, Marta y Pablo |
+| `nombresAprobados(lista)` | Solo los nombres de los aprobados (usa `aprobados`) | `filter` y `map` | `nombresAprobados(lista)` | ["Ana", "Marta", "Pablo"] |
+| `hayAlgunDiez(lista)` | `true` si algún alumno tiene un 10 | `some` | `hayAlgunDiez(lista)` | false |
+| `todosAprobados(lista)` | `true` si todos tienen 5 o más | `every` | `todosAprobados(lista)` | false |
+| `ranking(lista, n)` | Los `n` mejores alumnos, de mayor a menor nota | `ordenarPorNota` y `slice` | `ranking(lista, 2)` | Marta (9.25) y Ana (7.5) |
+ 
+La lista de ejemplo es Ana 7.5, Luis 4, Marta 9.25 y Pablo 5. `ranking` usa `ordenarPorNota` de la Fase 2, que ya trabaja sobre una copia, y por eso la lista original no cambia.
+ 
+### Experimento 1: todas las funciones con una lista vacía
+ 
+| Función | Resultado con `[]` |
+|---------|--------------------|
+| `notaMedia([])` | 0 |
+| `notaMaxima([])` | null |
+| `aprobados([])` | [] |
+| `nombresAprobados([])` | [] |
+| `hayAlgunDiez([])` | false |
+| `todosAprobados([])` | true |
+| `ranking([], 3)` | [] |
+ 
+### Experimento 2: quitar el valor inicial del `reduce`
+ 
+Quité el `0` del `reduce` de `notaMedia` y la probé con la lista vacía. Salió este error:
+ 
+```
+TypeError: Reduce of empty array with no initial value
+```
+ 
+Después volví a poner el `0`.
+ 
+### Preguntas
+ 
+1. **¿Por qué `reduce` necesita un valor inicial cuando la lista está vacía?**
+   Cuando no se le da valor inicial, `reduce` toma el primer elemento de la lista como punto de partida. Si la lista está vacía no hay primer elemento, y da un `TypeError`. Con el valor inicial `0`, `reduce` devuelve ese `0` y no falla.
+2. **¿Qué devuelve `todosAprobados` con una lista vacía? ¿Te parece lógico? Explícalo.**
+   Devuelve `true`. Es lógico en matemáticas: `every` pregunta si hay algún elemento que no cumpla la condición, y en una lista vacía no hay ninguno, así que "todos cumplen". Pero en una clase puede resultar raro decir que todos han aprobado cuando no hay ningún alumno. Si fuera necesario, habría que comprobar antes que la lista no está vacía.
+3. **¿Qué diferencia hay entre `map` y `filter`? Pon un ejemplo de tu código.**
+   `map` transforma cada elemento y devuelve un array con **la misma cantidad** de elementos. `filter` se queda solo con los elementos que cumplen una condición y devuelve un array con **igual o menos** elementos, sin cambiarlos. En `nombresAprobados` se ven los dos: `filter` (dentro de `aprobados`) deja solo a los que tienen 5 o más, y `map` convierte cada alumno en su nombre.
